@@ -17,6 +17,20 @@
     <script src="app/filters/passenger-filter.js"></script>
     <script src="app/services/passenger-service.js"></script>
     <script src="app/controllers/passenger-controller.js"></script>
+
+    <style>
+        input.ng-invalid {
+            border-left-color: red;
+            border-left-width: 10px;
+        }
+
+        input.ng-valid {
+            border-left-color: green;
+            border-left-width: 10px;
+        }
+    </style>
+
+
 </head>
 
 <body ng-app="flight-app" ng-controller="PassengerCtrl as vm">
@@ -53,6 +67,37 @@
                 <td ng-bind-template="{{r.passengerStatus | passengerStatus :'short'}} - {{r.passengerStatus | passengerStatus :'long'}}" />
             </tr>
         </table>
+
+
+        <form name="person" novalidate>
+            <div class="form-group">
+                <label>Name:</label>
+                <input class="form-control" name="username"
+                       required
+                       ng-minlength="3"
+                       ng-maxlength="30"
+                       pattern="[A-Za-z0-9\-]+"
+                ng-model="username">
+
+                <div ng-if="person.$error">irgendein error</div>
+
+                <div ng-if="person.username.$error">irgendein error am feld username</div>
+
+                <div ng-if="person.username.$error.minlength">
+                    Muss doch min. 3 Zeichen haben!
+                </div>
+
+                <div ng-if="person.username.$error.maxlength">
+                    Darf doch max. 30 Zeichen haben!
+                </div>
+
+                <div ng-if="person.username.$error.pattern">
+                    Darf doch nur Buchstaben, Ziffern und ein Minus enthalten!
+                </div>
+
+            </div>
+        </form>
+
     </div>
 
 <pre>
