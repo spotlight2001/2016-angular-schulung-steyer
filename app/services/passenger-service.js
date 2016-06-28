@@ -1,10 +1,11 @@
-app.service("passengerService", function($http) {
+app.service("PassengerService", function($http, baseUrl) {
 
     var that = this;
 
     that.search = function(name) {
         console.log("search with name: " + name);
-        var url = "http://www.angular.at/api/passenger";
+        var url = baseUrl + "/passenger";
+        console.log("url: " + url);
         var params = {
             name: name
         };

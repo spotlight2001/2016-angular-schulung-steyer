@@ -1,11 +1,11 @@
-﻿app.controller("passengerCtrl", function($http, passengerService) {
+﻿app.controller("PassengerCtrl", function($http, PassengerService) {
     var that = this;
 
     that.selection;
 
     that.search = function() {
         var name = that.filterName;
-        passengerService.search(name).then(function(passengers) {
+        PassengerService.search(name).then(function(passengers) {
             that.passengers = passengers;
         })
     }
