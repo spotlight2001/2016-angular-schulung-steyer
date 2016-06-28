@@ -14,14 +14,18 @@
 
     <!-- App -->
     <script src="app/app.js"></script>
+    <script src="app/filters/passenger-filter.js"></script>
     <script src="app/services/passenger-service.js"></script>
     <script src="app/controllers/passenger-controller.js"></script>
 </head>
 
 <body ng-app="flight-app" ng-controller="PassengerCtrl as vm">
 
-
     <div class="container">
+
+        <div class="alert alert-danger" ng-if="error">
+            {{error}}
+        </div>
 
         <h1>Passenger Search!</h1>
 
@@ -45,8 +49,8 @@
                 <td><a ng-click="vm.select(r)">{{r.id}}</a></td>
                 <td ng-bind="r.firstName" />
                 <td ng-bind="r.name" />
-                <td>{{r.bonusMiles | number}}</td>
-                <td>{{r.passengerStatus}}</td>
+                <td class="text-right" ng-bind="r.bonusMiles | number" />
+                <td ng-bind-template="{{r.passengerStatus | passengerStatus :'short'}} - {{r.passengerStatus | passengerStatus :'long'}}" />
             </tr>
         </table>
     </div>
