@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>FlugApp</title>
+
+    <!-- Bootstrap -->
+    <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+    <!-- AngularJS -->
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="node_modules/angular-i18n/angular-locale_de-de.js"></script>
+
+    <!-- App -->
+    <script src="app/app.js"></script>
+    <script src="app/app-controller.js"></script>
+    <script src="app/services/passenger-service.js"></script>
+</head>
+
+<body ng-app="flight-app" ng-controller="PassengerCtrl as vm">
+
+
+    <div class="container">
+
+        <h1>Passenger Search!</h1>
+
+        <div class="form-group">
+            <label>Name:</label>
+            <input ng-model="vm.filterName" class="form-control" ng-change="vm.search()" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1000, 'blur': 0 } }">
+        </div>
+
+        <div class="form-group">
+            <button ng-click="vm.search()" class="btn btn-primary">Search!</button>
+        </div>
+
+
+        <table class="table table-striped" ng-show="vm.passengers.length > 0">
+            <th>id</th>
+            <th>first name</th>
+            <th>name</th>
+            <th>bonus miles</th>
+            <th>status</th>
+            <tr ng-repeat="r in vm.passengers" ng-class="{'active': r == vm.selection}">
+                <td><a ng-click="vm.select(r)">{{r.id}}</a></td>
+                <td ng-bind="r.firstName" />
+                <td ng-bind="r.name" />
+                <td>{{r.bonusMiles | number}}</td>
+                <td>{{r.passengerStatus}}</td>
+            </tr>
+        </table>
+    </div>
+
+<pre>
+    Daten:
+    --------------
+{{vm.passengers | json}}
+</pre>
+
+</body>
+</html>

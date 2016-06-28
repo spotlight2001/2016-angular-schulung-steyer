@@ -1,0 +1,16 @@
+{
+  "name": "starterkit",
+  "version": "1.0.0",
+  "scripts": {
+    "server": "live-server"
+  },
+  "dependencies": {
+    "angular": "^1.5.7",
+    "angular-i18n": "^1.5.7",
+    "angular-ui-router": "^0.3.1",
+    "bootstrap": "^3.3.6"
+  },
+  "devDependencies": {
+    "live-server": "^1.0.0"
+  }
+}
