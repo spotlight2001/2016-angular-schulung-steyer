@@ -3,7 +3,10 @@
 
     that.selection;
 
-    that.search = function() {
+    that.search = function(valid) {
+        if (! valid) {
+            return;
+        }
         var name = that.filterName;
         PassengerService.search(name).then(function(passengers) {
             that.passengers = passengers;
