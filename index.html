@@ -7,6 +7,9 @@
     <!-- Bootstrap -->
     <link href="node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
     <!-- AngularJS -->
     <script src="node_modules/angular/angular.js"></script>
     <script src="node_modules/angular-ui-router/release/angular-ui-router.js"></script>
@@ -14,12 +17,14 @@
 
     <!-- App -->
     <script src="app/app.js"></script>
-    <script src="app/converters/passenger-converter.js"></script>
-    <script src="app/validators/passenger-validator.js"></script>
-    <script src="app/filters/passenger-filter.js"></script>
-    <script src="app/services/passenger-service.js"></script>
-    <script src="app/controllers/passenger-controller.js"></script>
+    <script src="app/passenger/passenger-converter.js"></script>
+    <script src="app/passenger/passenger-validator.js"></script>
+    <script src="app/passenger/passenger-filter.js"></script>
+    <script src="app/passenger/passenger-service.js"></script>
+    <script src="app/passenger/passenger-search-controller.js"></script>
     <script src="app/components/passenger-card.js"></script>
+    <script src="app/passenger/passenger-edit-controller.js"></script>
+
 
     <style>
         input.ng-invalid {
@@ -36,116 +41,41 @@
 
 </head>
 
-<body ng-app="flight-app" ng-controller="PassengerCtrl as vm">
-
-    <div class="container">
-
-        <div class="alert alert-danger" ng-if="error">
-            {{error}}
-        </div>
-
-        <h1>Passenger Search!</h1>
-
-        <form name="filterForm">
-        <div class="form-group">
-            <label>Name:</label>
-            <input ng-model="vm.filterName" class="form-control" ng-change="vm.search(filterForm.$valid)" ng-model-options="{ updateOn: 'default blur', debounce: { 'default': 1000, 'blur': 0 } }">
-        </div>
-
-        <div class="form-group">
-            <button ng-click="vm.search()" class="btn btn-primary">Search!</button>
-        </div>
-        </form>
-
-
-        <table class="table table-striped" ng-show="vm.passengers.length > 0">
-            <th>id</th>
-            <th>first name</th>
-            <th>name</th>
-            <th>bonus miles</th>
-            <th>status</th>
-            <tr ng-repeat="r in vm.passengers" ng-class="{'active': r == vm.selection}">
-                <td><a ng-click="vm.select(r)">{{r.id}}</a></td>
-                <td ng-bind="r.firstName" />
-                <td ng-bind="r.name" />
-                <td class="text-right" ng-bind="r.bonusMiles | number" />
-                <td ng-bind-template="{{r.passengerStatus | passengerStatus :'short'}} - {{r.passengerStatus | passengerStatus :'long'}}" />
-            </tr>
-        </table>
-
-
-        <form name="person" novalidate>
-            <div class="form-group">
-                <label>Name:</label>
-                <input class="form-control" name="username"
-                       required
-                       ng-minlength="3"
-                       ng-maxlength="30"
-                       pattern="[A-Za-z0-9\-]+"
-                       passenger-name
-                       passenger-name-async
-                       passenger-name-converter
-                ng-model="username">
-
-                <div ng-if="person.$invalid">irgendein error</div>
-
-                <div ng-if="person.username.$invalid">irgendein error am feld username
-                <pre>{{person.username.$error | json}}</pre>
-                </div>
-
-                <div ng-if="person.username.$error.minlength">
-                    Muss doch min. 3 Zeichen haben!
-                </div>
-
-                <div ng-if="person.username.$error.maxlength">
-                    Darf doch max. 30 Zeichen haben!
-                </div>
-
-                <div ng-if="person.username.$error.pattern">
-                    Darf doch nur Buchstaben, Ziffern und ein Minus enthalten!
-                </div>
-
-                <div ng-if="person.username.$error.passengerName">
-                    Custom validator failed
-                </div>
-
-                <div ng-if="person.username.$error.passengerNameAsync">
-                    Custom async validator failed
-                </div>
-
-                <div ng-if="person.username.$pending">
-                    Bitte warten ...
-                </div>
-
-            </div>
-        </form>
-
-
-
-        selected item: {{vm.selection}}
-        <div ng-repeat="r in vm.passengers" ng-class="{'active': r == vm.selection}">
-            <passenger-card item="r" selection="vm.selection" selection-change="vm.selection = $event">plz transclude me</passenger-card>
-        </div>
+<body ng-app="passenger-app">
 
 
 
 
+<nav class="navbar navbar-inverse">
 
 
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
 
+    <div class="navbar-header">
+        <a class="navbar-brand" href="#">Flight App</a>
     </div>
 
+    <div class="collapse navbar-collapse">
+        <ul class="nav navbar-nav">
+            <li><a ui-sref="home">Home</a></li>
+            <li><a ui-sref="passengerSearch">Passenger Search</a>  </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+
+    <div ui-view></div>
+
+</div>
 
 
 
-
-
-
-<pre>
-    Daten:
-    --------------
-{{vm.passengers | json}}
-</pre>
 
 </body>
 </html>

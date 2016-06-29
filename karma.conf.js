@@ -21,7 +21,6 @@ module.exports = function(config) {
       'node_modules/angular-i18n/angular-locale_en-us.js',
 
       'app/app.js',
-      'app/app-controller.js',
       'app/filters/*.js',
       'app/validators/*.js',
       'app/services/*.js',

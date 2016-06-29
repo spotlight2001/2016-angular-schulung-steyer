@@ -1,10 +1,11 @@
 app.component('passengerCard', {
-    templateUrl: 'app/components/passenger-card-template.html',
+    templateUrl: 'app/components/passenger-card.html',
     transclude: true,
     bindings: {
         item: '<',
         selection: '<',
-        selectionChange: '&'
+        selectionChange: '&',
+        param1: '@'
     },
     controller: function () {
         var that = this;
