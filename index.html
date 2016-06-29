@@ -19,6 +19,7 @@
     <script src="app/filters/passenger-filter.js"></script>
     <script src="app/services/passenger-service.js"></script>
     <script src="app/controllers/passenger-controller.js"></script>
+    <script src="app/components/passenger-card.js"></script>
 
     <style>
         input.ng-invalid {
@@ -119,7 +120,26 @@
             </div>
         </form>
 
+
+
+        selected item: {{vm.selection}}
+        <div ng-repeat="r in vm.passengers" ng-class="{'active': r == vm.selection}">
+            <passenger-card item="r" selection="vm.selection" selection-change="vm.selection = $event">plz transclude me</passenger-card>
+        </div>
+
+
+
+
+
+
+
     </div>
+
+
+
+
+
+
 
 <pre>
     Daten:

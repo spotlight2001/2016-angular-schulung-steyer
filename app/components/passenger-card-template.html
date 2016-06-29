@@ -1,0 +1,13 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title" ng-bind-template="{{$ctrl.item.id}} - {{$ctrl.item.name}}"></h3>
+    </div>
+    <div class="panel-body">
+        <input
+                type="button"
+                value="Select"
+                class="btn btn-default"
+                ng-click="$ctrl.select()" />
+        <ng-transclude></ng-transclude>
+    </div>
+</div>
