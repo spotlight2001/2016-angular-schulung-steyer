@@ -14,6 +14,8 @@
 
     <!-- App -->
     <script src="app/app.js"></script>
+    <script src="app/converters/passenger-converter.js"></script>
+    <script src="app/validators/passenger-validator.js"></script>
     <script src="app/filters/passenger-filter.js"></script>
     <script src="app/services/passenger-service.js"></script>
     <script src="app/controllers/passenger-controller.js"></script>
@@ -77,11 +79,16 @@
                        ng-minlength="3"
                        ng-maxlength="30"
                        pattern="[A-Za-z0-9\-]+"
+                       passenger-name
+                       passenger-name-async
+                       passenger-name-converter
                 ng-model="username">
 
-                <div ng-if="person.$error">irgendein error</div>
+                <div ng-if="person.$invalid">irgendein error</div>
 
-                <div ng-if="person.username.$error">irgendein error am feld username</div>
+                <div ng-if="person.username.$invalid">irgendein error am feld username
+                <pre>{{person.username.$error | json}}</pre>
+                </div>
 
                 <div ng-if="person.username.$error.minlength">
                     Muss doch min. 3 Zeichen haben!
@@ -93,6 +100,18 @@
 
                 <div ng-if="person.username.$error.pattern">
                     Darf doch nur Buchstaben, Ziffern und ein Minus enthalten!
+                </div>
+
+                <div ng-if="person.username.$error.passengerName">
+                    Custom validator failed
+                </div>
+
+                <div ng-if="person.username.$error.passengerNameAsync">
+                    Custom async validator failed
+                </div>
+
+                <div ng-if="person.username.$pending">
+                    Bitte warten ...
                 </div>
 
             </div>
